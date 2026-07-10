@@ -234,6 +234,12 @@ span.hash-note::before { content: "　# "; }
   .label { width: 100%; }
 }
 
+@media screen and (max-width: 480px) {
+  .archive > ul > li > a.archive-category {
+    font-size: .06em;
+  }
+}
+
 @media print {
   del, footer, .masthead {
     display: none;
