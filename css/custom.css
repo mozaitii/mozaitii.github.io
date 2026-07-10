@@ -234,6 +234,13 @@ span.hash-note::before { content: "　# "; }
   .label { width: 100%; }
 }
 
+@media screen and (max-width: 480px) {
+  .main:has(.archive) {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
 @media print {
   del, footer, .masthead {
     display: none;
