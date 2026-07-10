@@ -37,7 +37,7 @@ body {
   border-bottom: none;
 }
 .archive > ul > li > a.archive-category {
-  font-size: .045em;
+  font-size: 0.45em;
   color: #158cba;
   margin-left: 0.6em;
   border: 1px solid #7acee6;
@@ -232,12 +232,6 @@ span.hash-note::before { content: "　# "; }
   }
   .panel { order: inherit; }
   .label { width: 100%; }
-}
-
-@media screen and (max-width: 480px) {
-  .archive > ul > li > a.archive-category {
-    font-size: .06em;
-  }
 }
 
 @media print {
