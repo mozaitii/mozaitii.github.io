@@ -254,3 +254,637 @@ span.hash-note::before { content: "　# "; }
     padding-left: 10px;
   }
 }
+
+/* ========== Moments / 动态页面 ========== */
+
+.moments-page {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 0.5em 0 2em;
+}
+
+/* -- Timeline vertical line -- */
+.moments-timeline {
+  position: relative;
+  padding: 0;
+}
+
+/* -- Each moment row -- */
+.moment-item {
+  position: relative;
+  padding: 0 0 2em 100px;
+  min-height: 60px;
+}
+
+/* Timeline dot */
+.moment-dot {
+  position: absolute;
+  left: 63px;
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ddd;
+  border: 2px solid #fff;
+  z-index: 1;
+}
+
+.moment-item:first-child .moment-dot {
+  background: #fb7299;
+}
+
+/* -- Date badge -- */
+.moment-date {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 55px;
+  text-align: right;
+  padding-right: 12px;
+  line-height: 1.3;
+}
+
+.moment-date-month {
+  font-size: 0.75em;
+  color: #999;
+}
+
+.moment-date-day {
+  display: block;
+  font-size: 1.1em;
+  font-weight: 700;
+  color: #444;
+  line-height: 1.2;
+}
+
+.moment-date-year {
+  display: block;
+  font-size: 0.7em;
+  color: #aaa;
+}
+
+/* -- Content card -- */
+.moment-card {
+  position: relative;
+  background: #fff;
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+  padding: 1em 1.2em;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  transition: box-shadow 0.2s;
+}
+
+.moment-card:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.moment-body {
+  font-size: 0.95em;
+  line-height: 1.7;
+  color: #333;
+}
+
+.moment-body p {
+  margin: 0 0 0.4em;
+}
+
+.moment-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* -- Picture styles -- */
+.moment-pictures {
+  margin-top: 0.6em;
+}
+
+.moment-pictures a {
+  border-bottom: none;
+}
+
+.moment-img-single {
+  max-width: 100%;
+  border-radius: 6px;
+  display: block;
+}
+
+.moment-img-grid {
+  display: grid;
+  gap: 5px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.moment-img-grid.grid-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.moment-img-grid.grid-3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.moment-img-grid a {
+  overflow: hidden;
+}
+
+.moment-img-grid img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.25s ease;
+}
+
+.moment-img-grid img:hover {
+  transform: scale(1.06);
+}
+
+/* -- Link card -- */
+.moment-link-card {
+  margin-top: 0.6em;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  background: #fafafa;
+  padding: 0.5em 0.8em;
+}
+
+.moment-link-card a {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  color: #2a7ae2;
+  text-decoration: none;
+  border-bottom: none;
+  font-size: 0.9em;
+}
+
+.moment-link-card a:hover {
+  color: #1a5bb5;
+}
+
+.moment-link-icon {
+  font-size: 1.1em;
+}
+
+/* -- Meta / footer -- */
+.moment-meta {
+  margin-top: 0.6em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.4em;
+}
+
+.moment-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.moment-tag {
+  font-size: 0.72em;
+  color: #158cba;
+  border: 1px solid #b3dff2;
+  border-radius: 10px;
+  padding: 1px 8px;
+  background: #f0f9ff;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.moment-tag:hover {
+  background: #fb7299;
+  color: #fff;
+  border-color: #fb7299;
+}
+
+.moment-extra {
+  font-size: 0.78em;
+  color: #aaa;
+  display: flex;
+  gap: 0.5em;
+  flex-shrink: 0;
+}
+
+.moment-note {
+  color: #2a7ae2;
+}
+
+.moment-location {
+  color: #2a7ae2;
+}
+
+.moment-note::before {
+  content: "· ";
+}
+
+/* -- Back button on single page -- */
+.moment-back {
+  display: inline-block;
+  margin-top: 1.5em;
+  font-size: 0.9em;
+  color: #888;
+  border-bottom: none;
+}
+
+.moment-back:hover {
+  color: #333;
+}
+
+/* -- Loading indicator -- */
+.moments-loading {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 2em 0;
+  color: #999;
+  font-size: 0.9em;
+}
+
+.moments-loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid #e0e0e0;
+  border-top-color: #fb7299;
+  border-radius: 50%;
+  animation: moments-spin 0.8s linear infinite;
+}
+
+@keyframes moments-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* -- Back to top button -- */
+#moments-back-top {
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #e0e0e0;
+  background: rgba(255,255,255,0.9);
+  color: #888;
+  font-size: 1.2em;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  transition: background 0.2s, color 0.2s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+#moments-back-top:hover {
+  background: #fb7299;
+  color: #fff;
+  border-color: #fb7299;
+}
+
+/* -- Responsive -- */
+@media screen and (max-width: 720px) {
+  .moments-timeline::before {
+    left: 45px;
+  }
+
+  .moment-item {
+    padding-left: 70px;
+  }
+
+  .moment-dot {
+    left: 38px;
+  }
+
+  .moment-date {
+    width: 35px;
+  }
+
+  .moment-date-day {
+    font-size: 1em;
+  }
+
+  .moment-date-month,
+  .moment-date-year {
+    font-size: 0.65em;
+  }
+
+  .moment-card {
+    padding: 0.8em 1em;
+  }
+
+  .moment-img-grid img {
+    height: 100px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .moment-item {
+    padding-left: 55px;
+    padding-bottom: 1.5em;
+  }
+
+  .moments-timeline::before {
+    left: 30px;
+  }
+
+  .moment-dot {
+    left: 23px;
+    width: 10px;
+    height: 10px;
+  }
+
+  .moment-date {
+    width: 25px;
+    padding-right: 8px;
+  }
+
+  .moment-date-day {
+    font-size: 0.9em;
+  }
+
+  .moment-img-grid img {
+    height: 80px;
+  }
+
+  #moments-back-top {
+    bottom: 20px;
+    right: 20px;
+    width: 36px;
+    height: 36px;
+    font-size: 1em;
+  }
+}
+
+/* ========== 夜间模式 / Dark Mode ========== */
+
+.dark-mode {
+  background: #1a1a1a;
+  color: #c8c8c8;
+}
+
+.dark-mode .masthead {
+  background: #222;
+  border-right-color: #333;
+}
+
+.dark-mode .main {
+  background: #1a1a1a;
+  color: #c8c8c8;
+}
+
+.dark-mode a {
+  color: #6ab0f3;
+  border-bottom-color: #555;
+}
+
+.dark-mode a:hover {
+  background-color: rgba(255,215,0,0.15);
+}
+
+.dark-mode h1, .dark-mode h2, .dark-mode h3,
+.dark-mode h4, .dark-mode h5, .dark-mode h6 {
+  color: #e0e0e0;
+}
+
+.dark-mode .masthead .menu a {
+  color: #aaa;
+}
+
+.dark-mode .masthead .menu a:hover {
+  color: #fff;
+  background: transparent;
+}
+
+.dark-mode .masthead .menu .active a {
+  color: #6ab0f3;
+}
+
+.dark-mode code, .dark-mode pre {
+  background: #2d2d2d;
+  color: #c8c8c8;
+}
+
+.dark-mode .hljs {
+  background: #2d2d2d;
+}
+
+.dark-mode blockquote {
+  border-left-color: #444;
+  color: #aaa;
+}
+
+.dark-mode hr {
+  border-color: #333;
+}
+
+.dark-mode .archive > ul > li > span {
+  color: #888;
+}
+
+.dark-mode .archive a:hover {
+  background-color: rgba(255,215,0,0.15);
+}
+
+.dark-mode .archive-category {
+  color: #5ba9d4 !important;
+  border-color: #3a7a9e !important;
+  background: #1e3340 !important;
+}
+
+.dark-mode .archive-category:hover {
+  background: #fb7299 !important;
+  color: #fff !important;
+  border-color: #fb7299 !important;
+}
+
+.dark-mode .meta-category {
+  color: #888;
+}
+
+.dark-mode #TableOfContents {
+  background: #2a2a2a;
+}
+
+.dark-mode iframe, .dark-mode twitterwidget, .dark-mode video {
+  opacity: 0.85;
+}
+
+.dark-mode .main img:not(.avatar):not(.aplayer-pic) {
+  opacity: 0.85;
+  transition: opacity 0.3s;
+}
+
+.dark-mode .main img:hover {
+  opacity: 1;
+}
+
+.dark-mode .masthead img {
+  opacity: 0.85;
+}
+
+/* -- Disqus tabs -- */
+.dark-mode .tabs {
+  background: #2a2a2a;
+}
+
+.dark-mode .label {
+  background: #333;
+  color: #aaa;
+}
+
+.dark-mode .label:hover {
+  background: #444;
+}
+
+.dark-mode .input:checked + .label {
+  background: #2a2a2a;
+  color: #ddd;
+  border-color: #444;
+}
+
+.dark-mode .panel {
+  background: #2a2a2a;
+}
+
+/* -- Moments dark mode -- */
+.dark-mode .moment-card {
+  background: #2a2a2a;
+  border-color: #333;
+}
+
+.dark-mode .moment-body {
+  color: #c8c8c8;
+}
+
+.dark-mode .moment-date-day {
+  color: #ccc;
+}
+
+.dark-mode .moment-date-year {
+  color: #666;
+}
+
+.dark-mode .moment-tag {
+  color: #5ba9d4;
+  border-color: #3a7a9e;
+  background: #1e3340;
+}
+
+.dark-mode .moment-tag:hover {
+  background: #fb7299;
+  color: #fff;
+  border-color: #fb7299;
+}
+
+.dark-mode .moment-link-card {
+  background: #333;
+  border-color: #444;
+}
+
+.dark-mode .moment-link-card a {
+  color: #6ab0f3;
+}
+
+.dark-mode .moment-extra {
+  color: #666;
+}
+
+.dark-mode .moment-note {
+  color: #5ba9d4;
+}
+
+.dark-mode .moment-location {
+  color: #5ba9d4;
+}
+
+.dark-mode .moment-back {
+  color: #888;
+}
+
+.dark-mode .moment-back:hover {
+  color: #ccc;
+}
+
+.dark-mode #moments-back-top {
+  background: rgba(40,40,40,0.9);
+  border-color: #444;
+  color: #888;
+}
+
+.dark-mode #moments-back-top:hover {
+  background: #fb7299;
+  color: #fff;
+  border-color: #fb7299;
+}
+
+/* -- Mobile menu -- */
+@media screen and (max-width: 960px) {
+  .dark-mode .masthead .menu a {
+    background: #555;
+    color: #ddd;
+  }
+  .dark-mode .masthead .menu .active a {
+    background: none;
+    border-color: #888;
+    color: #6ab0f3;
+  }
+}
+
+/* -- Theme toggle button (next to logo) -- */
+.masthead-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;               /* ← 调大此值增加间距 */
+  position: relative;
+}
+
+.masthead-header h1 {
+  margin: 0;
+}
+
+.theme-toggle {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  cursor: pointer;
+  font-size: 1em;
+  line-height: 1;
+  padding: 4px 6px;
+  margin-top: 0px;
+  border-radius: 4px;
+  transition: background 0.2s;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  background: rgba(0,0,0,0.06);
+}
+
+.dark-mode .theme-toggle:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.dark-mode .theme-toggle {
+  background: rgba(40,40,40,0.85);
+  border-color: #444;
+}
+
+@media screen and (max-width: 960px) {
+  .theme-toggle {
+    position: absolute;
+    right: 0;             /* ← 改大此值让按钮左移 */
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1em;
+    padding: 6px 10px;
+    background: #444;
+    border-radius: 5px;
+    color: #fff;
+    line-height: 1;
+  }
+  .dark-mode .theme-toggle {
+    background: #555;
+  }
+}
