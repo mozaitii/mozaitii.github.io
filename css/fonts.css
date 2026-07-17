@@ -1,60 +1,11 @@
-@font-face {
-  font-family: 'LXGW WenKai';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/files/lxgwwenkai-regular-subset-0.woff2') format('woff2');
-  unicode-range: U+9fef-ffff, U+ff01-ffee, U+fe00-fe02, U+fdf4, U+fb4f, U+fb46, U+fb2a-fb2e, U+fa2e, U+fa10, U+f9e7, U+f9c0, U+f979;
-}
-@font-face {
-  font-family: 'LXGW WenKai';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/files/lxgwwenkai-regular-subset-1.woff2') format('woff2');
-  unicode-range: U+9f20-9fee, U+9e92-9f1f, U+9d47-9e91, U+9bfb-9d46, U+9a48-9bfa, U+987f-9a47, U+9732-987e, U+95ff-9731;
-}
-@font-face {
-  font-family: 'LXGW WenKai';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/files/lxgwwenkai-regular-subset-2.woff2') format('woff2');
-  unicode-range: U+94b6-95fe, U+92a3-94b5, U+8f14-92a2, U+8cd0-8f13, U+8a6c-8ccf, U+87e3-8a6b, U+856e-87e2, U+82e5-856d;
-}
-@font-face {
-  font-family: 'LXGW WenKai';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/files/lxgwwenkai-regular-subset-3.woff2') format('woff2');
-  unicode-range: U+7eb6-82e4, U+7a86-7eb5, U+7668-7a85, U+71cb-7667, U+6d36-71ca, U+6872-6d35, U+634e-6871, U+5f7d-634d;
-}
-@font-face {
-  font-family: 'LXGW WenKai';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/files/lxgwwenkai-regular-subset-4.woff2') format('woff2');
-  unicode-range: U+5d13-5f7c, U+5a6a-5d12, U+5763-5a69, U+5415-5762, U+5157-5414, U+4eb3-5156, U+4e02-4eb2, U+0-4e01;
-}
-@font-face {
-  font-family: 'LXGW WenKai';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/files/lxgwwenkai-regular-subset-5.woff2') format('woff2');
-  unicode-range: U+2000-206f, U+20ac, U+2122, U+2190-21bb, U+2212, U+2215, U+2264-2265, U+25a0, U+25cb, U+25cf, U+25e6, U+2605-2606, U+2640, U+2642, U+2713, U+2717, U+2e3a-2e3b, U+3001-3002, U+3008-3011, U+3014-301b, U+3041-3096, U+3099-309e, U+30a1-30fe, U+30fc, U+4e00-9fff, U+e78d-ea9f, U+f843, U+fe00, U+feff-fff2;
-}
-
 body {
   font-family: Palatino, "Palatino Linotype", "Palatino LT STD", 'source-han-serif-sc', 'Source Han Serif SC', 'Source Han Serif CN', 'Source Han Serif TC', 'Source Han Serif TW', 'Source Han Serif', 'Noto Serif CJK SC', 'Songti SC', 'Microsoft YaHei', serif;
 }
 .home blockquote, .cn blockquote, .kai, .cn em, .hash-note {
-  font-family: 'LXGW WenKai', 'STKaiti', 'KaiTi', '楷体', 'SimKai', 'DFKai-SB', 'NSimSun', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, 'STKaiti', 'KaiTi', '楷体', 'SimKai', 'DFKai-SB', 'NSimSun', serif;
 }
 code {
-  font-family: Consolas, Courier, "Courier New", 'LXGW WenKai', 'STKaiti', 'KaiTi', 'SimKai', monospace;
+  font-family: Consolas, Courier, "Courier New", 'STKaiti', 'KaiTi', 'SimKai', monospace;
 }
 pre, code {
   font-size: .95em;
