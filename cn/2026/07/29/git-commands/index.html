@@ -1,0 +1,99 @@
+<!doctype html><html lang=en-US><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>git 常用命令速记 - Mozaitii</title><meta property="og:title" content="git 常用命令速记 - Mozaitii"><meta name=twitter:card content="summary"><meta property="description" content="Git 命令行一段时间不使用容易遗忘，常查常新，把常用的记录在此。
+[&mldr;] # HTTPS 方式 git clone https://github.com/用户名/仓库名.git # SSH 方式（需配置 SSH Key） git clone git@github.com:用户名/仓库名.git # 克隆到指定目录 git clone https://github.com/用户名/仓 &amp;hellip;"><meta property="og:description" content="Git 命令行一段时间不使用容易遗忘，常查常新，把常用的记录在此。
+[&mldr;] # HTTPS 方式 git clone https://github.com/用户名/仓库名.git # SSH 方式（需配置 SSH Key） git clone git@github.com:用户名/仓库名.git # 克隆到指定目录 git clone https://github.com/用户名/仓 &amp;hellip;"><meta name=twitter:image content="https://mozaitii.github.io/images/Lung.jpeg"><link href=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/vs.min.css rel=stylesheet type=text/css><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=/css/fonts.css><script src=https://cdn.jsdelivr.net/npm/@xiee/utils/js/load-typekit.min.js defer></script><link rel=stylesheet href=/css/custom.css></head><body class=cn><header class=masthead><div class=masthead-header><h1><a href=/><img src=/images/avator_2.png alt=Mozaitii></a></h1><div class=theme-toggle id=theme-toggle title=切换夜间模式>🌙</div></div><nav class=menu><ul><li><a href=/>主页</a></li><li><a href=/cn/>日志</a></li><li><a href=/categories/>目录</a></li><li><a href=/tags/>标签</a></li><li><a href=/moments/>动态</a></li></ul></nav></header><article class=main><header class=title><h1>git 常用命令速记</h1><h3>Mozaitii /
+2026-07-29</h3><hr></header><p>Git 命令行一段时间不使用容易遗忘，常查常新，把常用的记录在此。</p><h2 id=克隆仓库>克隆仓库</h2><pre><code class=language-bash># HTTPS 方式
+git clone https://github.com/用户名/仓库名.git
+
+# SSH 方式（需配置 SSH Key）
+git clone git@github.com:用户名/仓库名.git
+
+# 克隆到指定目录
+git clone https://github.com/用户名/仓库名.git 目标文件夹
+
+# 浅克隆，只拉取最新版本（省流量省磁盘）
+git clone --depth 1 https://github.com/用户名/仓库名.git
+
+# 含子模块的仓库（如本博客的 theme）
+git clone --recursive git@github.com:用户名/仓库名.git
+
+# 克隆指定分支
+git clone -b 分支名 git@github.com:用户名/仓库名.git
+</code></pre><h2 id=拉取远程更新>拉取远程更新</h2><pre><code class=language-bash># 查看远程有哪些新提交（安全，不会自动合并）
+git fetch origin
+
+# 拉取远程代码并自动合并到当前分支（一步到位）
+git pull
+
+# 更完整的写法，先 fetch 看变更，再手动合并
+git fetch origin          # 查看远程更新
+git log origin/main       # 看远程分支的提交记录
+git merge origin/main     # 确认后合并到本地
+</code></pre><p>今天就用到了这套流程：<code>git fetch</code> 查看 → <code>git log</code> 确认 → <code>git merge</code> 合并，避免了 <code>git pull</code> 可能带来的意外冲突。</p><h2 id=查看提交历史>查看提交历史</h2><pre><code class=language-bash># 简洁版，一行一个提交
+git log --oneline
+
+# 只看最近 N 条
+git log --oneline -5
+
+# 查看某个远程分支的提交历史
+git log origin/main --oneline -10
+
+# 详细日志含分支图
+git log --oneline --graph --all
+</code></pre><h2 id=日常操作>日常操作</h2><pre><code class=language-bash># 查看工作区状态
+git status
+
+# 添加文件到暂存区
+git add 文件名
+git add .              # 添加所有变更
+
+# 提交
+git commit -m &quot;提交说明&quot;
+
+# 推送远程
+git push origin main
+
+# 一行命令推送新分支到远程并建立追踪
+git push -u origin 分支名
+</code></pre><h2 id=分支操作>分支操作</h2><pre><code class=language-bash># 查看本地分支
+git branch
+
+# 查看所有分支（含远程）
+git branch -a
+
+# 创建并切换到新分支
+git checkout -b 新分支名
+
+# 切换分支
+git checkout 分支名
+
+# 删除本地分支
+git branch -d 分支名
+
+# 删除远程分支
+git push origin --delete 分支名
+</code></pre><h2 id=撤销与回退>撤销与回退</h2><pre><code class=language-bash># 撤销工作区的修改（未 add）
+git checkout -- 文件名
+
+# 撤销暂存区（已 add 但未 commit）
+git reset HEAD 文件名
+
+# 回退到上一个提交（保留工作区修改）
+git reset --soft HEAD~1
+
+# 回退并丢弃工作区修改（谨慎使用）
+git reset --hard HEAD~1
+</code></pre><h2 id=其他实用命令>其他实用命令</h2><pre><code class=language-bash># 暂存当前工作，切换到其他分支干活
+git stash
+git stash pop          # 恢复暂存
+
+# 查看文件具体变更内容
+git diff
+git diff --staged      # 查看已暂存的变更
+
+# 绑定远程仓库
+git remote add origin git@github.com:用户名/仓库名.git
+
+# 查看远程仓库地址
+git remote -v
+</code></pre><footer><nav class=post-nav><span class=nav-prev></span>
+<span class=nav-next><a href=/cn/2026/06/22/obsidian/>obsidian 使用心得</a> &rarr;</span></nav><script src=//cdn.jsdelivr.net/npm/@xiee/utils/js/math-code.js defer></script><script src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><script src=//cdn.jsdelivr.net/npm/@xiee/utils/js/center-img.js defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css><script src=https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js></script><script>(function(){"use strict";if(document.addEventListener("click",function(e){var t,n,s=e.target.closest("a[href]");if(!s)return;if(t=s.getAttribute("href"),!t)return;if(t.startsWith("#")||t.startsWith("mailto:")||t.startsWith("http")||s.hasAttribute("download")||t.match(/\.(pdf|zip|rar|gz|mp3|mp4|mov)$/i))return;e.preventDefault(),n=new URL(t,location.origin).href,fetch(n).then(function(e){return e.text()}).then(function(e){var s,a,t=(new DOMParser).parseFromString(e,"text/html"),o=t.querySelector(".main"),i=document.querySelector(".main");o&&i&&(i.innerHTML=o.innerHTML,document.title=t.title,t.body.className&&(document.body.className=t.body.className),history.pushState(null,"",n),window.scrollTo(0,0),window.MathJax&&MathJax.typeset&&MathJax.typeset(),a=new URL(n).pathname,document.querySelectorAll(".masthead .menu li").forEach(function(e){e.classList.remove("active")}),s=document.querySelector('.masthead .menu a[href="'+a+'"]'),s&&s.parentElement.classList.add("active"))}).catch(function(){location.href=n})}),window.addEventListener("popstate",function(){location.reload()}),document.querySelector(".aplayer.aplayer-fixed"))return;var e,t=document.createElement("div");t.id="moz-player-wrap",document.body.appendChild(t),e=new XMLHttpRequest,e.open("GET","https://api.injahow.cn/meting/?server=netease&type=playlist&id=2718299842"),e.onload=function(){if(e.status!==200)return;try{var o=JSON.parse(e.responseText),t=[],s=0;o.forEach(function(e,i){var a=new XMLHttpRequest;a.open("GET",e.lrc),a.onload=function(){t[i]={name:e.name,artist:e.artist,url:e.url,cover:e.pic,lrc:a.responseText||""},s++,s===o.length&&n(t)},a.onerror=function(){t[i]={name:e.name,artist:e.artist,url:e.url,cover:e.pic,lrc:""},s++,s===o.length&&n(t)},a.send()})}catch{}},e.send();function n(e){var n,s=new APlayer({container:t,fixed:!0,mini:!0,listFolded:!0,lrcType:1,order:"random",loop:"all",mutex:!0,storage:"moz-music-player",audio:e});s.on("play",function(){setTimeout(function(){var t,e=document.querySelector(".aplayer.aplayer-fixed");if(!e)return;e.classList.remove("aplayer-narrow"),t=e.querySelector(".aplayer-lrc"),t&&(t.style.display="block")},300)}),n=document.createElement("div"),n.innerHTML="✕",n.style.cssText="position:absolute;top:-8px;right:0;z-index:1000;width:20px;height:20px;cursor:pointer;font-size:14px;color:#999;background:#fff;border-radius:50%;line-height:20px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.2)",n.title="关闭播放器（刷新后重新显示）",n.onclick=function(){s.destroy(),n.remove()},setTimeout(function(){var e=document.querySelector(".aplayer.aplayer-fixed");e&&e.appendChild(n)},500)}})()</script><script>(function(){"use strict";var s,t="moz-dark-mode",e=document.getElementById("theme-toggle");function n(t){document.body.classList.toggle("dark-mode",t),e&&(e.textContent=t?"🌙":"🌞")}function o(){var e,n=localStorage.getItem(t);return n==="true"||n!=="false"&&(e=(new Date).getHours(),e>=18||e<6)}n(o()),e&&e.addEventListener("click",function(){var e=!document.body.classList.contains("dark-mode");localStorage.setItem(t,e),n(e)}),s=new MutationObserver(function(){var e,o,s=localStorage.getItem(t);s!==null&&(e=s==="true",o=document.body.classList.contains("dark-mode"),o!==e&&n(e))}),s.observe(document.body,{attributes:!0,attributeFilter:["class"]})})()</script><script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/tex.min.js></script><script>hljs.configure({languages:[]}),hljs.initHighlightingOnLoad()</script><hr><div class=copyright>© Mozaitii 2026 ｜ All Rights Reserved.</div></footer></article></body></html>
