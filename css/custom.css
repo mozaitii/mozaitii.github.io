@@ -59,6 +59,13 @@ body {
 .menu li:not([class]) a, a:hover, .copyright a {
   border-bottom: none;
 }
+/* 导航菜单：仅当前激活项显示虚线下划线，其余不显示 */
+.menu li a {
+  border-bottom: none;
+}
+.menu li.active a {
+  border-bottom: 1px dashed;
+}
 .menu-extra {
   list-style: circle;
 }
