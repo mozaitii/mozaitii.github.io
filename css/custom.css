@@ -116,8 +116,19 @@ pre:hover {
 .hljs-comment {
   font-style: inherit;
 }
+
+/* ===== 代码块：现代化外观（覆盖主题自带的灰边框 + 投影） ===== */
+pre code {
+  border: none;
+  box-shadow: none;
+  background: #f6f8fa;
+  border-radius: 6px;
+  padding: 1em 1.2em;
+}
+/* highlight.js 默认给块设白色底，统一成与 pre code 一致的底色 */
 .hljs {
-  padding: 1em;
+  padding: 1em 1.2em;
+  background: #f6f8fa;
 }
 .home hr {
   margin: 2em auto 1em;

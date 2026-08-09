@@ -79,4 +79,123 @@ pip3 install Pillow
 <p>省下来的流量和加载时间，会让博客一直保持轻盈；而省下来的「记得要压缩」的注意力，是更好的收获。</p>
 
         
+        ]]></description></item><item><title>博客的 GitHub Pages 部署</title><link>https://mozaitii.github.io/cn/2026/07/28/github-pages-deploy/</link><pubDate>Tue, 28 Jul 2026 00:00:00 +0000</pubDate><author>Mozaitii</author><guid>https://mozaitii.github.io/cn/2026/07/28/github-pages-deploy/</guid><description><![CDATA[
+        <p>本博客部署在 GitHub Pages 上，域名 <code>mozaitii.github.io</code>。从写完一篇草稿到它在网上可访问，中间只隔了一次 <code>git push</code>——剩下全交给 GitHub Actions 流水线，这篇把整套部署方案拆开讲讲。</p>
+<h2 id="整体架构-两个仓库">整体架构：两个仓库</h2>
+<p>关键在于它其实是两个 GitHub 仓库，分工完全不同：</p>
+<table>
+	<thead>
+			<tr>
+					<th>仓库</th>
+					<th>内容</th>
+					<th>作用</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>moz_blog_source</code></td>
+					<td>Hugo 源码：<code>content/</code>、<code>layouts/</code>、<code>static/</code>、主题子模块</td>
+					<td>唯一手动维护的地方</td>
+			</tr>
+			<tr>
+					<td><code>mozaitii.github.io</code></td>
+					<td>编译好的静态站（HTML/CSS/图片）</td>
+					<td>GitHub Pages 直接托管它</td>
+			</tr>
+	</tbody>
+</table>
+<p>链路是这样的：</p>
+<pre><code>写博客 → 源码仓库 moz_blog_source
+              │  git push main
+              ▼
+       GitHub Actions 流水线（编译 Hugo）
+              │  推送构建产物
+              ▼
+       发布仓库 mozaitii.github.io（main 分支）
+              │  GitHub Pages 托管
+              ▼
+          https://mozaitii.github.io/
+</code></pre>
+<p>注意一个细节：<code>docs/</code>（hugo 的构建输出目录）在源码仓库里是<strong>被 <code>.gitignore</code> 忽略的</strong>，<code>publishDir</code> 也指向它，也就是说源码仓库里只有「配方」，没有「成品」——成品由 CI 每次从源码现编出来。</p>
+<h2 id="为什么不用-单仓库-docs-目录-发布">为什么不用「单仓库 + docs/ 目录」发布</h2>
+<p>GitHub Pages 有一个更常见的玩法：单个仓库里把 <code>hugo</code> 产物放到 <code>docs/</code> 目录，然后在仓库的 Settings → Pages 里选「Deploy from a branch → <code>docs/</code>」，这样只有一个仓库、不需要额外仓库和 token。</p>
+<p>刚开始也这么考虑过，最后还是选了独立发布仓库，原因是：</p>
+<ul>
+<li><strong>源码和产物不混在同一个历史里</strong>。单仓库意味着每次提交都带着编译产物，历史里全是 <code>docs/</code> 的噪音提交；产物和源码解耦后，<code>main</code> 分支就是干净的内容变更。</li>
+<li><strong>CI 每次全量重编</strong>，产物可复现。本地 <code>hugo</code> 产生的中间文件（比如 Hugo 图片处理缓存的 <code>resources/</code>）不会误入库。</li>
+<li>发布仓库本身也是一个通用的「静态托管位」,将来如果想挂别的静态站、甚至多语言分站，可以独立控制。</li>
+</ul>
+<p>代价是要维护一个 PAT（见下文），以及在 <code>.github/workflows/</code> 里多写一个文件。对「免费 + 自动」来说这笔账很划算。</p>
+<h2 id="workflows工作流">Workflows工作流</h2>
+<p>部署的全部魔法都在 <code>.github/workflows/deploy.yml</code> 这一个文件里：</p>
+<pre><code class="language-yaml">name: Deploy Hugo Site to GitHub Pages
+
+on:
+  push:
+    branches: [main]   # 推到 main 就触发
+  workflow_dispatch:   # 也支持在 Actions 页面手动触发
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true        # ← 关键：拉取主题子模块
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'
+
+      - name: Build
+        run: hugo --minify        # 构建产物输出到 docs/（publishDir）
+
+      - name: Deploy to mozaitii.github.io
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.GH_PAT }}      # 见下节
+          external_repository: mozaitii/mozaitii.github.io
+          publish_dir: ./docs      # 把刚编译的 docs/ 内容发布出去
+          publish_branch: main     # 推到发布仓库的 main 分支
+</code></pre>
+<p>四步很简单，但每一行都有讲究：</p>
+<ul>
+<li><code>submodules: true</code>：主题 <code>hugo-ivy</code> 是 git submodule。默认 checkout 不带子模块，不写这行构建会直接报「找不到主题」。</li>
+<li><code>peaceiris/actions-hugo@v2</code>：一个把 Hugo 装进 runner 的 action。只装二进制，很快。<code>hugo-version: 'latest'</code> 意味着站点一直跟随最新版编译。</li>
+<li><code>hugo --minify</code>：压缩产物（去空白、精简 HTML）。<code>publishDir</code> 在 <code>config.yaml</code> 里是 <code>docs</code>，所以产物自然落在 <code>./docs</code>。</li>
+<li><code>peaceiris/actions-gh-pages@v3</code>：把 <code>publish_dir</code> 指向的文件夹内容推送到另一个仓库的分支。<code>publish_branch: main</code> <code>会整分支覆盖式更新</code>——发布仓库的 <code>main</code> 永远等于「最新一次构建产物」。</li>
+</ul>
+<h2 id="跨仓库推送的秘密">跨仓库推送的秘密</h2>
+<p>这里有个不能绕过的点：workflow 默认拿到的 <code>GITHUB_TOKEN</code> <code>只在当前仓库内部有效</code>，没法往 <code>mozaitii.github.io</code> 这个「别的仓库」里推。所以要显式给一个 PAT（Personal Access Token）。</p>
+<p>配置流程：</p>
+<ol>
+<li>在 GitHub 右上角头像 → <strong>Settings → Developer settings → Personal access tokens → Tokens (classic)</strong>，点 Generate new token。</li>
+<li>scope 勾选 <strong><code>repo</code></strong>（包含读写该账号下所有仓库的权限）。更稳妥的做法是用 <strong>Fine-grained token</strong>：只授权发布仓库 <code>mozaitii.github.io</code>，权限只给 <code>Contents: Read and write</code>——这样就算 token 泄露也推不了别的仓库。</li>
+<li>回到源码仓库 → <strong>Settings → Secrets and variables → Actions → New repository secret</strong>，名字填 <code>GH_PAT</code>（和 workflow 里 <code>secrets.GH_PAT</code> 对应），值粘贴 token。</li>
+</ol>
+<p>之后 workflow 运行时，<code>${{ secrets.GH_PAT }}</code> 会以密文形式注入。这个值只在服务端存在，不会出现在日志里。</p>
+<h2 id="github-pages-配置">GitHub Pages 配置</h2>
+<p>发布仓库创建好之后，进 <code>mozaitii.github.io</code> → <strong>Settings → Pages</strong>：</p>
+<ul>
+<li><strong>Build and deployment → Source</strong> 选 <strong>Deploy from a branch</strong></li>
+<li><strong>Branch</strong> 选 <code>main</code>，目录选 <code>/ (root)</code></li>
+</ul>
+<p>因为仓库名是 <code>username.github.io</code> 这种<code>用户站点</code>格式，Pages 默认就给它分配 <code>https://mozaitii.github.io/</code> 域名，无需手动绑定。<code>config.yaml</code> 里的 <code>baseurl</code> 也写死成这个域名，保证站点内的绝对链接指向正确。</p>
+<p>一个容易踩的坑：<code>用户站点要求仓库名和 GitHub 用户名完全一致</code>。比如 <code>mozaitii</code> 这个账号，仓库必须叫 <code>mozaitii.github.io</code>，否则 Pages 不会以默认域名发布。</p>
+<h2 id="本地到线上">本地到线上</h2>
+<p>日常写博客，只需要走本地流程：</p>
+<pre><code class="language-bash">hugo server -D   # 本地预览（含草稿）
+# ……改完内容后
+hugo             # 可选：本地看一眼最终产物（输出到 docs/）
+git add .
+git commit
+git push origin main    # ← 到这里就结束了
+</code></pre>
+<p>push 之后，GitHub Actions 在云端重新构建并发布，几分钟内 <code>https://mozaitii.github.io/</code> 就是最新版。</p>
+<p>另外还给仓库配了一个 pre-commit 钩子（<code>.githooks/</code>），提交前自动把待提交的大图压到 1600px。这条流水线和图片压缩是两条独立的链路：<code>压缩管的是「源码怎么进仓库」，部署管的是「源码怎么变成线上站」</code>，互不干扰。</p>
+<h2 id="小结">小结</h2>
+<p>本地写博客，push后自动部署，又有了重新更新博的动力 🚣‍♀️。</p>
+
+        
         ]]></description></item></channel></rss>
