@@ -4,4 +4,67 @@
         </description></item><item><title>集录</title><link>https://mozaitii.github.io/cn/</link><pubDate>Tue, 31 Jan 2017 00:00:00 +0000</pubDate><author>Mozaitii</author><guid>https://mozaitii.github.io/cn/</guid><description>
         
         
-        </description></item></channel></rss>
+        </description></item><item><title>书影</title><link>https://mozaitii.github.io/books/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://mozaitii.github.io/books/</guid><description><![CDATA[
+        <h1 id="heading">📚 | 📹</h1>
+<p>有书读、有影看是一件十分幸福的事情。这个页面记录了这些年读过的书，以及看过的一些影视，<span class="term"><strong>「类别</strong>」</span>和<span class="term"><strong>「推荐指数」</strong></span>均为个人主观看法，仅供参考。</p>
+<h2 id="2026">2026</h2>
+<table>
+	<thead>
+			<tr>
+					<th>名称</th>
+					<th>类别</th>
+					<th>推荐指数</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><a href="https://book.douban.com/subject/1054917/">沧澜之水</a> （在读）</td>
+					<td>小说</td>
+					<td>★★★★</td>
+			</tr>
+			<tr>
+					<td><a href="https://book.douban.com/subject/1082159/">活着</a></td>
+					<td>小说</td>
+					<td>★★★★★</td>
+			</tr>
+			<tr>
+					<td><a href="https://book.douban.com/subject/35546622/">置身事内</a>｜<a href="/cn/">笔记</a></td>
+					<td>经济学</td>
+					<td>★★★★</td>
+			</tr>
+			<tr>
+					<td><a href="https://movie.douban.com/subject/3541415/">盗梦空间</a><span class="tag-movie" title="电影">影</span></td>
+					<td>电影/科幻</td>
+					<td>★★★★★</td>
+			</tr>
+	</tbody>
+</table>
+<p><strong>随想：</strong></p>
+<ol>
+<li>今年重拾阅读习惯，偏向科幻与人物传记。</li>
+</ol>
+<h2 id="2025">2025</h2>
+<table>
+	<thead>
+			<tr>
+					<th>名称</th>
+					<th>类别</th>
+					<th>推荐指数</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><a href="https://book.douban.com/subject/1084336/">小王子</a></td>
+					<td>文学</td>
+					<td>★★★★</td>
+			</tr>
+			<tr>
+					<td><a href="https://movie.douban.com/subject/1889243/">星际穿越</a><span class="tag-movie" title="电影">影</span></td>
+					<td>电影/科幻</td>
+					<td>★★★★★</td>
+			</tr>
+	</tbody>
+</table>
+
+        
+        ]]></description></item></channel></rss>

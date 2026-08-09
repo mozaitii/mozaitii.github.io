@@ -95,6 +95,12 @@ iframe, twitterwidget, video {
   background-color: #f8f8f8;
   padding: .5em;
 }
+#TableOfContents::before {
+  content: "目录";
+  display: block;
+  font-weight: 600;
+  margin-bottom: .3em;
+}
 table {
   min-width: 50%;
   max-width: 100%;
@@ -895,3 +901,168 @@ span.hash-note::before { content: "　# "; }
     background: #555;
   }
 }
+
+/* ========== 书单表格：参考 blog.wohin.me —— 圆角实线表 ========== */
+.booklist table {
+  width: 100%;
+  margin: 1em 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid #666;
+  border-radius: 10px;
+  overflow: hidden;
+  color: #333;
+}
+.booklist table th,
+.booklist table td {
+  border: 1px solid #666;
+  padding: 8px;
+}
+.booklist table th {
+  background: #dedede;
+}
+.booklist table td {
+  background: #fff;
+}
+/* 四角单元格圆角（配合 overflow: hidden 生效） */
+.booklist table th:first-child {
+  border-top-left-radius: 10px;
+}
+.booklist table th:last-child {
+  border-top-right-radius: 10px;
+}
+.booklist table tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+.booklist table tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
+
+/* -- 深色模式 -- */
+.dark-mode .booklist table {
+  border-color: #888;
+  color: #e0e0e0;
+}
+.dark-mode .booklist table th,
+.dark-mode .booklist table td {
+  border-color: #888;
+}
+.dark-mode .booklist table th {
+  background: #444;
+}
+.dark-mode .booklist table td {
+  background: #333;
+}
+
+/* ========== 书单页布局：左侧目录 + 右侧内容 ========== */
+/* 字体参考 blog.wohin.me：霞鹜文楷屏幕版 + Bree Serif 后备 */
+.booklist {
+  display: flex;
+  gap: 2em;
+  align-items: flex-start;
+  max-width: 980px;
+  margin: 0 auto;
+  font-family: "LXGW WenKai Screen R", "Bree Serif", sans-serif;
+}
+
+.booklist-toc {
+  flex: 0 0 200px;
+  position: sticky;
+  top: 2em;
+  max-height: calc(100vh - 4em);
+  overflow-y: auto;
+}
+
+.booklist-toc #TableOfContents {
+  background: #f8f8f8;
+  padding: 0.5em 1em;
+  margin: 0;
+}
+
+.booklist-toc a {
+  border-bottom: none;
+}
+
+.booklist-content {
+  flex: 1;
+  min-width: 0;
+}
+
+@media screen and (min-width: 961px) {
+  /* 书单页：.main 占满左栏(200px masthead)右侧区域，两栏块与标题在其中水平居中 */
+  body.books .main {
+    width: auto;
+    margin-left: 240px;
+    margin-right: 40px;
+  }
+
+  body.books .main > .title {
+    max-width: 980px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .booklist {
+    display: block;
+  }
+
+  .booklist-toc {
+    position: static;
+    margin-bottom: 1.5em;
+  }
+}
+
+.dark-mode .booklist-toc #TableOfContents {
+  background: #2a2a2a;
+}
+
+/* -- 书单页细节 -- */
+/* 年份标题靠左 */
+.booklist-content h1,
+.booklist-content h2,
+.booklist-content h3 {
+  text-align: left;
+}
+
+/* 表格内书名链接：蓝色、默认无下划线、悬停显示下划线 */
+.booklist table a {
+  color: #2a7ae2;
+  border-bottom: none;
+}
+
+.booklist table a:hover {
+  border-bottom: 1px solid; /* 颜色跟随文字（蓝色） */
+}
+
+.dark-mode .booklist table a {
+  color: #6ab0f3;
+}
+
+/* 引言里的「类别」「推荐指数」：纯蓝色文字，呼应书名蓝 */
+.booklist-content .term {
+  color: #2a7ae2;
+}
+
+.dark-mode .booklist-content .term {
+  color: #6ab0f3;
+}
+
+/* 影单标注：与书名同格的小灰标签 */
+.tag-movie {
+  font-size: 0.7em;
+  color: #888;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 0 4px;
+  margin-left: 6px;
+  vertical-align: 0.15em;
+  white-space: nowrap;
+}
+
+.dark-mode .tag-movie {
+  color: #aaa;
+  border-color: #555;
+}
+
