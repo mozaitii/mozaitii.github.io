@@ -11,31 +11,42 @@
 <table>
 	<thead>
 			<tr>
-					<th>名称</th>
-					<th>类别</th>
-					<th>推荐指数</th>
+					<th style="text-align: left">名称</th>
+					<th style="text-align: center">类别</th>
+					<th style="text-align: center">上映/出版</th>
+					<th style="text-align: center">推荐指数</th>
 			</tr>
 	</thead>
 	<tbody>
 			<tr>
-					<td><a href="https://book.douban.com/subject/1054917/">沧澜之水</a> （在读）</td>
-					<td>小说</td>
-					<td>★★★★</td>
+					<td style="text-align: left"><a href="https://book.douban.com/subject/1054917/">沧澜之水</a> （在读）</td>
+					<td style="text-align: center">小说</td>
+					<td style="text-align: center">2001</td>
+					<td style="text-align: center">★★★★</td>
 			</tr>
 			<tr>
-					<td><a href="https://book.douban.com/subject/1082159/">活着</a></td>
-					<td>小说</td>
-					<td>★★★★★</td>
+					<td style="text-align: left"><a href="https://book.douban.com/subject/35546622/">置身事内</a>｜<a href="/cn/">笔记</a></td>
+					<td style="text-align: center">经济学</td>
+					<td style="text-align: center">2005</td>
+					<td style="text-align: center">★★★★</td>
 			</tr>
 			<tr>
-					<td><a href="https://book.douban.com/subject/35546622/">置身事内</a>｜<a href="/cn/">笔记</a></td>
-					<td>经济学</td>
-					<td>★★★★</td>
+					<td style="text-align: left"><a href="https://movie.douban.com/subject/1296339/">Before Sunrise</a><span class="tag-movie" title="电影">影</span></td>
+					<td style="text-align: center">爱情</td>
+					<td style="text-align: center">1995</td>
+					<td style="text-align: center">★★★</td>
 			</tr>
 			<tr>
-					<td><a href="https://movie.douban.com/subject/3541415/">盗梦空间</a><span class="tag-movie" title="电影">影</span></td>
-					<td>电影/科幻</td>
-					<td>★★★★★</td>
+					<td style="text-align: left"><a href="https://movie.douban.com/subject/1291548/">死亡诗社</a><span class="tag-movie" title="电影">影</span></td>
+					<td style="text-align: center">剧情</td>
+					<td style="text-align: center">1989</td>
+					<td style="text-align: center">★★★★★</td>
+			</tr>
+			<tr>
+					<td style="text-align: left"><a href="https://movie.douban.com/subject/3541415/">盗梦空间</a><span class="tag-movie" title="电影">影</span></td>
+					<td style="text-align: center">科幻</td>
+					<td style="text-align: center">2010</td>
+					<td style="text-align: center">★★★★★</td>
 			</tr>
 	</tbody>
 </table>
@@ -47,21 +58,24 @@
 <table>
 	<thead>
 			<tr>
-					<th>名称</th>
-					<th>类别</th>
-					<th>推荐指数</th>
+					<th style="text-align: left">名称</th>
+					<th style="text-align: center">类别</th>
+					<th style="text-align: center">上映/出版</th>
+					<th style="text-align: center">推荐指数</th>
 			</tr>
 	</thead>
 	<tbody>
 			<tr>
-					<td><a href="https://book.douban.com/subject/1084336/">小王子</a></td>
-					<td>文学</td>
-					<td>★★★★</td>
+					<td style="text-align: left"><a href="https://book.douban.com/subject/1084336/">小王子</a></td>
+					<td style="text-align: center">文学</td>
+					<td style="text-align: center">2003</td>
+					<td style="text-align: center">★★★★</td>
 			</tr>
 			<tr>
-					<td><a href="https://movie.douban.com/subject/1889243/">星际穿越</a><span class="tag-movie" title="电影">影</span></td>
-					<td>电影/科幻</td>
-					<td>★★★★★</td>
+					<td style="text-align: left"><a href="https://movie.douban.com/subject/1889243/">星际穿越</a><span class="tag-movie" title="电影">影</span></td>
+					<td style="text-align: center">科幻/冒险</td>
+					<td style="text-align: center">2014</td>
+					<td style="text-align: center">★★★★★</td>
 			</tr>
 	</tbody>
 </table>

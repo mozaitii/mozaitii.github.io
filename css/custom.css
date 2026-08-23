@@ -1077,3 +1077,52 @@ span.hash-note::before { content: "　# "; }
   border-color: #555;
 }
 
+/* ========== GitHub 贡献日历 ========== */
+:root {
+  --contrib-0: #ebedf0;  --contrib-1: #9be9a8;  --contrib-2: #40c463;
+  --contrib-3: #30a14e;  --contrib-4: #216e39;          /* GitHub 绿 */
+  --contrib-card-bg: #fff; --contrib-card-border: #f0f0f0;
+  --contrib-text: #666; --contrib-strong: #333;
+}
+.contributions { margin: 1.5em auto 0; background: var(--contrib-card-bg);
+  border: 1px solid var(--contrib-card-border); border-radius: 8px;
+  padding: 1em 1.2em; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+.contrib-summary { font-size: .95em; color: #130fda; font-weight: bold; margin-bottom: .7em; }
+.contrib-summary strong { color: inherit; }
+.contrib-scroll { overflow-x: auto; padding-bottom: 4px; }   /* 窄屏横向滚动 */
+.contrib-grid { display: grid; grid-template-columns: 30px repeat(53, 10px);
+  grid-auto-rows: 10px; column-gap: 2px; row-gap: 2px; width: max-content; }
+.contrib-weekday { font-size: 9px; color: #999; line-height: 10px; text-align: right; padding-right: 4px; }
+.contrib-month { font-size: 10px; color: #999; line-height: 12px; }
+.contrib-cell { border-radius: 2px; }
+.cal-lvl-0 { background: var(--contrib-0); }
+.cal-lvl-1 { background: var(--contrib-1); }
+.cal-lvl-2 { background: var(--contrib-2); }
+.cal-lvl-3 { background: var(--contrib-3); }
+.cal-lvl-4 { background: var(--contrib-4); }
+.contrib-legend { display: flex; align-items: center; justify-content: flex-end;
+  gap: 4px; margin-top: .7em; font-size: 11px; color: #999; }
+.contrib-legend .contrib-cell { width: 10px; height: 10px; }
+
+/* 深色模式：只需换变量（站点用 .dark-mode class，非 prefers-color-scheme） */
+.dark-mode {
+  --contrib-0: #1b222d;  --contrib-1: #0e4429;  --contrib-2: #006d32;
+  --contrib-3: #26a641;  --contrib-4: #39d353;
+  --contrib-card-bg: #2a2a2a; --contrib-card-border: #333;
+  --contrib-text: #888; --contrib-strong: #ddd;
+}
+.dark-mode .contrib-weekday, .dark-mode .contrib-month, .dark-mode .contrib-legend { color: #888; }
+.dark-mode .contrib-summary { color: #6ab0f3; }
+
+/* 本地字体 */
+@font-face {
+  font-family: 'LXGWWenKai Screen';
+  src: url('/fonts/LXGWWenKaiScreen.woff2') format('woff2');
+  font-display: swap;
+}
+
+body {
+  font-family: 'Palatino', 'LXGWWenKai Screen', serif;
+}
+
+
