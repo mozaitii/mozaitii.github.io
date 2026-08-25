@@ -995,6 +995,7 @@ span.hash-note::before { content: "　# "; }
 }
 
 .booklist-content {
+  overflow-x: auto;
   flex: 1;
   min-width: 0;
 }
@@ -1122,7 +1123,7 @@ span.hash-note::before { content: "　# "; }
 }
 
 body {
-  font-family: 'Palatino', 'LXGWWenKai Screen', serif;
+  font-family: 'LXGWWenKai Screen', 'Palatino', serif;
 }
 
 
