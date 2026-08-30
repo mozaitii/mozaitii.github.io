@@ -1,4 +1,279 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Git on Mozaitii</title><link>https://mozaitii.github.io/tags/git/</link><description>Recent content in Git on Mozaitii</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><managingEditor>Mozaitii@qq.com (Mozaitii)</managingEditor><webMaster>Mozaitii@qq.com (Mozaitii)</webMaster><lastBuildDate>Wed, 29 Jul 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://mozaitii.github.io/tags/git/" rel="self" type="application/rss+xml"/><item><title>git 常用命令速记</title><link>https://mozaitii.github.io/cn/2026/07/29/git-commands/</link><pubDate>Wed, 29 Jul 2026 00:00:00 +0000</pubDate><author>Mozaitii</author><guid>https://mozaitii.github.io/cn/2026/07/29/git-commands/</guid><description><![CDATA[
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Git on Mozaitii</title><link>https://mozaitii.github.io/tags/git/</link><description>Recent content in Git on Mozaitii</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><managingEditor>Mozaitii@qq.com (Mozaitii)</managingEditor><webMaster>Mozaitii@qq.com (Mozaitii)</webMaster><lastBuildDate>Sun, 30 Aug 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://mozaitii.github.io/tags/git/" rel="self" type="application/rss+xml"/><item><title>GitHub PR</title><link>https://mozaitii.github.io/cn/2026/08/30/git-pr-test/</link><pubDate>Sun, 30 Aug 2026 00:00:00 +0000</pubDate><author>Mozaitii</author><guid>https://mozaitii.github.io/cn/2026/08/30/git-pr-test/</guid><description><![CDATA[
+        <h1 id="github-pull-request-实践">GitHub Pull Request 实践</h1>
+<p>在团队开发中，通常不会直接在 <code>main</code> 分支上进行功能开发，而是基于 <code>main</code> 创建功能分支，完成开发后将分支推送到 GitHub，通过 Pull Request（PR）进行代码审查，最后合并到 <code>main</code>。</p>
+<p>一个典型的 GitHub 协作流程如下：</p>
+<pre><code class="language-text">main
+  │
+  ├── 创建 feature 分支
+  │
+  ↓
+feature/login
+  │
+  ├── 开发
+  ├── git add
+  ├── git commit
+  └── git push
+          │
+          ↓
+   Pull Request
+          │
+          ↓
+    Code Review
+          │
+          ↓
+        Merge
+          │
+          ↓
+         main
+</code></pre>
+<h2 id="1-git-的基本工作区域">1. Git 的基本工作区域</h2>
+<p>Git 中代码主要经历以下几个阶段：</p>
+<pre><code class="language-text">工作区
+  │ git add
+  ↓
+暂存区
+  │ git commit
+  ↓
+本地仓库
+  │ git push
+  ↓
+远程仓库
+</code></pre>
+<p><code>git add</code> 将工作区修改放入暂存区，<code>git commit</code> 将暂存区内容保存到本地仓库，<code>git push</code> 将本地提交上传到远程仓库。</p>
+<p>常用命令：</p>
+<pre><code class="language-bash">git status
+git diff
+git add .
+git diff --cached
+git commit -m &quot;xxx&quot;
+git push
+</code></pre>
+<p>如果已经执行 <code>git commit</code>，此时工作区没有新的修改，<code>git diff</code> 没有输出是正常的。查看最近一次提交的修改可以使用：</p>
+<pre><code class="language-bash">git show
+git show --stat
+</code></pre>
+<hr>
+<h2 id="2-创建-feature-branch">2. 创建 Feature Branch</h2>
+<p>团队开发通常不直接修改 <code>main</code>，而是创建功能分支。例如开发登录功能：</p>
+<pre><code class="language-bash">git switch -c feature/login
+</code></pre>
+<p>该命令会创建并切换到 <code>feature/login</code>。</p>
+<p>查看当前分支：</p>
+<pre><code class="language-bash">git branch
+</code></pre>
+<p>例如，其中 <code>*</code> 表示当前所在分支。：</p>
+<pre><code class="language-text">* feature/login
+  main
+</code></pre>
+<hr>
+<h2 id="3-开发并提交代码">3. 开发并提交代码</h2>
+<p>在 <code>feature/login</code> 分支上完成代码修改后，可以使用：</p>
+<pre><code class="language-bash">git status
+git diff
+</code></pre>
+<p>查看当前修改，然后执行：</p>
+<pre><code class="language-bash">git add .
+git diff --cached
+git commit -m &quot;feat: add login feature&quot;
+</code></pre>
+<p>其中 <code>git diff --cached</code> 用于检查已经加入暂存区的内容。</p>
+<p>常见的 Commit Message 类型：</p>
+<pre><code class="language-text">feat:     新增功能
+fix:      修复问题
+refactor: 重构代码
+docs:     修改文档
+test:     增加或修改测试
+</code></pre>
+<hr>
+<h2 id="4-push-到-github">4. Push 到 GitHub</h2>
+<p>第一次推送新分支：</p>
+<pre><code class="language-bash">git push -u origin feature/login
+</code></pre>
+<p>其中 <code>origin</code> 通常是远程仓库的默认名称，<code>-u</code> 是 <code>--set-upstream</code> 的缩写，用于建立本地分支和远程分支之间的跟踪关系：</p>
+<pre><code class="language-text">本地 feature/login
+        ↕
+远程 origin/feature/login
+</code></pre>
+<p>建立跟踪关系后，后续直接执行即可：</p>
+<pre><code class="language-bash">git push
+</code></pre>
+<hr>
+<h2 id="5-pull-request">5. Pull Request</h2>
+<p>分支推送到 GitHub 后，可以创建 Pull Request：</p>
+<pre><code class="language-text">feature/login → main
+</code></pre>
+<p>Pull Request 可以理解为：</p>
+<blockquote>
+<p>请求将一个分支的代码修改合并到另一个分支。</p>
+</blockquote>
+<p>PR 不属于 Git 本身，而是 GitHub、GitLab 等代码托管平台提供的协作功能。除了代码合并，还可以进行 Code Review、CI 检查、代码讨论和权限控制。</p>
+<hr>
+<h2 id="6-mergeability-检查">6. Mergeability 检查</h2>
+<p>创建 PR 后，GitHub 会检查两个分支是否存在无法自动解决的代码冲突。</p>
+<p>如果看到：</p>
+<pre><code class="language-text">Checking for the ability to merge automatically...
+</code></pre>
+<p>表示 GitHub 正在检查当前 PR 是否可以自动合并。</p>
+<p>如果显示：</p>
+<pre><code class="language-text">Able to merge
+</code></pre>
+<p>说明 Git 层面不存在无法自动解决的冲突。</p>
+<p>需要注意：</p>
+<blockquote>
+<p><code>Able to merge</code> 只表示代码可以自动合并，并不代表 Code Review 已经通过。</p>
+</blockquote>
+<p>如果两个分支修改了同一部分代码，可能出现：</p>
+<pre><code class="language-text">This branch has conflicts that must be resolved
+</code></pre>
+<p>此时需要先解决冲突，再进行 Merge。</p>
+<hr>
+<h2 id="7-code-review">7. Code Review</h2>
+<p>Code Review 通常发生在 PR 创建之后、Merge 之前。Reviewer 主要检查代码逻辑、潜在 Bug、代码规范、可维护性、性能以及测试等。</p>
+<p>GitHub 中常见的 Review 结果：</p>
+<ul>
+<li><strong>Comment</strong>：提出意见，但不明确批准或拒绝。</li>
+<li><strong>Approve</strong>：审核通过，可以进入合并流程。</li>
+<li><strong>Request changes</strong>：存在问题，需要修改后重新 Review。</li>
+</ul>
+<p>如果 Reviewer 要求修改代码，开发者直接修改并提交：</p>
+<pre><code class="language-bash">git add .
+git commit -m &quot;fix: address review comments&quot;
+git push
+</code></pre>
+<p>原来的 PR 会自动更新，不需要重新创建 PR。</p>
+<hr>
+<h2 id="8-approve-与-merge">8. Approve 与 Merge</h2>
+<p>需要区分 <strong>Approve</strong> 和 <strong>Merge</strong>：</p>
+<table>
+	<thead>
+			<tr>
+					<th>操作</th>
+					<th>含义</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Comment</td>
+					<td>提出意见</td>
+			</tr>
+			<tr>
+					<td>Request changes</td>
+					<td>要求修改</td>
+			</tr>
+			<tr>
+					<td>Approve</td>
+					<td>审核通过</td>
+			</tr>
+			<tr>
+					<td>Merge</td>
+					<td>真正执行分支合并</td>
+			</tr>
+	</tbody>
+</table>
+<p>因此：</p>
+<pre><code class="language-text">Approve → Reviewer 同意代码
+Merge   → 真正将代码合并到目标分支
+</code></pre>
+<p>PR 作者不能 Approve 自己创建的 PR。如果 GitHub 提示：</p>
+<pre><code class="language-text">Pull request authors can't approve their own pull requests.
+</code></pre>
+<p>表示 PR 作者不能给自己的 PR 执行 Approval，并不代表一定不能 Merge。</p>
+<p>如果仓库设置了分支保护规则，例如要求至少一个 Approval，则需要其他开发人员进行 Review。</p>
+<hr>
+<h2 id="9-branch-protection">9. Branch Protection</h2>
+<p>团队项目通常会对 <code>main</code> 设置保护规则，例如：</p>
+<ul>
+<li>必须通过 Pull Request 才能合并</li>
+<li>必须至少一个 Reviewer Approve</li>
+<li>CI 检查必须通过</li>
+<li>必须解决所有 Review 对话</li>
+<li>禁止直接 Push 到 <code>main</code></li>
+</ul>
+<p>这样可以避免未经审核的代码直接进入主分支。</p>
+<hr>
+<h2 id="10-merge-pull-request">10. Merge Pull Request</h2>
+<p>Review 和 CI 检查通过后，可以将 Feature Branch 合并到 <code>main</code>。</p>
+<p>GitHub 中通常点击：</p>
+<pre><code class="language-text">Merge pull request
+</code></pre>
+<p>然后确认 Merge。</p>
+<p>常见的 Merge 方式包括：</p>
+<ul>
+<li><strong>Merge commit</strong></li>
+<li><strong>Squash and merge</strong></li>
+<li><strong>Rebase and merge</strong></li>
+</ul>
+<p>具体使用哪一种，可以根据项目的 Git 工作流决定。</p>
+<hr>
+<h2 id="11-更新本地-main">11. 更新本地 main</h2>
+<p>PR 在 GitHub 上 Merge 后，本地 <code>main</code> 不会自动更新，需要同步远程仓库：</p>
+<pre><code class="language-bash">git switch main
+git pull
+</code></pre>
+<p>这样本地 <code>main</code> 就会获得 GitHub 上最新的代码。</p>
+<hr>
+<h2 id="12-删除-feature-branch">12. 删除 Feature Branch</h2>
+<p>功能开发完成并 Merge 后，Feature Branch 通常就可以删除。</p>
+<p>删除本地分支：</p>
+<pre><code class="language-bash">git branch -d feature/login
+</code></pre>
+<p>如果 Git 检测到分支还有未合并的提交，会阻止删除。确认不需要这些提交后，可以强制删除：</p>
+<pre><code class="language-bash">git branch -D feature/login
+</code></pre>
+<p>删除远程分支：</p>
+<pre><code class="language-bash">git push origin --delete feature/login
+</code></pre>
+<p>GitHub 在 PR Merge 后通常也会提供 <strong>Delete branch</strong> 按钮，可以直接删除远程分支。</p>
+<hr>
+<h2 id="13-总结">13. 总结</h2>
+<p>一个完整的 GitHub PR 工作流可以总结为：</p>
+<pre><code class="language-text">main
+  │
+  ├── 创建 feature 分支
+  │
+  ↓
+feature/login
+  │
+  ├── 开发
+  ├── git add
+  ├── git commit
+  └── git push
+          │
+          ↓
+   Pull Request
+          │
+          ↓
+    Code Review
+          │
+          ├── Request changes
+          │       ↓
+          │     修改代码
+          │       ↓
+          │     commit
+          │       ↓
+          │      push
+          │
+          ↓
+       Approve
+          │
+          ↓
+        Merge
+          │
+          ↓
+         main
+          │
+          ↓
+       git pull
+          │
+          ↓
+     删除 feature 分支
+</code></pre>
+<p>对于个人项目，可以直接使用 <code>git merge</code> 完成分支合并；多人协作项目则更推荐采用：</p>
+<p><strong>Feature Branch → Pull Request → Code Review → CI → Merge</strong></p>
+<p>这样可以在代码进入 <code>main</code> 之前完成审核、测试和讨论，提高代码质量并方便团队协作。</p>
+
+        
+        ]]></description></item><item><title>git 常用命令速记</title><link>https://mozaitii.github.io/cn/2026/07/29/git-commands/</link><pubDate>Wed, 29 Jul 2026 00:00:00 +0000</pubDate><author>Mozaitii</author><guid>https://mozaitii.github.io/cn/2026/07/29/git-commands/</guid><description><![CDATA[
         <p>Git 命令行一段时间不使用容易遗忘，常查常新，把常用的记录在此。</p>
 <h2 id="克隆仓库">克隆仓库</h2>
 <pre><code class="language-bash"># HTTPS 方式

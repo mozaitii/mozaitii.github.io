@@ -1,0 +1,123 @@
+<!doctype html><html lang=en-US><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>GitHub PR - Mozaitii</title><meta property="og:title" content="GitHub PR - Mozaitii"><meta name=twitter:card content="summary"><meta property="description" content="在团队开发中，通常不会直接在 main 分支上进行功能开发，而是基于 main 创建功能分支，完成开发后将分支推送到 GitHub，通过 Pull Request（PR）进行代码审查，最后合并到 main。
+一个典型的 GitHub 协作流程如下：
+main │ ├── 创建 feature 分支 │ ↓ feature/login │ ├── 开发 ├── git add ├── git &amp;hellip;"><meta property="og:description" content="在团队开发中，通常不会直接在 main 分支上进行功能开发，而是基于 main 创建功能分支，完成开发后将分支推送到 GitHub，通过 Pull Request（PR）进行代码审查，最后合并到 main。
+一个典型的 GitHub 协作流程如下：
+main │ ├── 创建 feature 分支 │ ↓ feature/login │ ├── 开发 ├── git add ├── git &amp;hellip;"><meta name=twitter:image content="https://mozaitii.github.io/images/Lung.jpeg"><link href=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/vs.min.css rel=stylesheet type=text/css><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=/css/fonts.css><script src=https://cdn.jsdelivr.net/npm/@xiee/utils/js/load-typekit.min.js defer></script><link rel=stylesheet href=/css/custom.css></head><body class=cn><header class=masthead><div class=masthead-header><h1><a href=/><img src=/images/avator_2.png alt=Mozaitii></a></h1><div class=theme-toggle id=theme-toggle title=切换夜间模式>🌙</div></div><nav class=menu><ul><li><a href=/>主页</a></li><li><a href=/cn/>日志</a></li><li><a href=/categories/>目录</a></li><li><a href=/tags/>标签</a></li><li><a href=/moments/>瞬间</a></li><li><a href=/books/>书影</a></li></ul></nav></header><article class=main><header class=title><h1>GitHub PR</h1><h3>Mozaitii /
+2026-08-30</h3><hr></header><h1 id=github-pull-request-实践>GitHub Pull Request 实践</h1><p>在团队开发中，通常不会直接在 <code>main</code> 分支上进行功能开发，而是基于 <code>main</code> 创建功能分支，完成开发后将分支推送到 GitHub，通过 Pull Request（PR）进行代码审查，最后合并到 <code>main</code>。</p><p>一个典型的 GitHub 协作流程如下：</p><pre><code class=language-text>main
+  │
+  ├── 创建 feature 分支
+  │
+  ↓
+feature/login
+  │
+  ├── 开发
+  ├── git add
+  ├── git commit
+  └── git push
+          │
+          ↓
+   Pull Request
+          │
+          ↓
+    Code Review
+          │
+          ↓
+        Merge
+          │
+          ↓
+         main
+</code></pre><h2 id=1-git-的基本工作区域>1. Git 的基本工作区域</h2><p>Git 中代码主要经历以下几个阶段：</p><pre><code class=language-text>工作区
+  │ git add
+  ↓
+暂存区
+  │ git commit
+  ↓
+本地仓库
+  │ git push
+  ↓
+远程仓库
+</code></pre><p><code>git add</code> 将工作区修改放入暂存区，<code>git commit</code> 将暂存区内容保存到本地仓库，<code>git push</code> 将本地提交上传到远程仓库。</p><p>常用命令：</p><pre><code class=language-bash>git status
+git diff
+git add .
+git diff --cached
+git commit -m &quot;xxx&quot;
+git push
+</code></pre><p>如果已经执行 <code>git commit</code>，此时工作区没有新的修改，<code>git diff</code> 没有输出是正常的。查看最近一次提交的修改可以使用：</p><pre><code class=language-bash>git show
+git show --stat
+</code></pre><hr><h2 id=2-创建-feature-branch>2. 创建 Feature Branch</h2><p>团队开发通常不直接修改 <code>main</code>，而是创建功能分支。例如开发登录功能：</p><pre><code class=language-bash>git switch -c feature/login
+</code></pre><p>该命令会创建并切换到 <code>feature/login</code>。</p><p>查看当前分支：</p><pre><code class=language-bash>git branch
+</code></pre><p>例如，其中 <code>*</code> 表示当前所在分支。：</p><pre><code class=language-text>* feature/login
+  main
+</code></pre><hr><h2 id=3-开发并提交代码>3. 开发并提交代码</h2><p>在 <code>feature/login</code> 分支上完成代码修改后，可以使用：</p><pre><code class=language-bash>git status
+git diff
+</code></pre><p>查看当前修改，然后执行：</p><pre><code class=language-bash>git add .
+git diff --cached
+git commit -m &quot;feat: add login feature&quot;
+</code></pre><p>其中 <code>git diff --cached</code> 用于检查已经加入暂存区的内容。</p><p>常见的 Commit Message 类型：</p><pre><code class=language-text>feat:     新增功能
+fix:      修复问题
+refactor: 重构代码
+docs:     修改文档
+test:     增加或修改测试
+</code></pre><hr><h2 id=4-push-到-github>4. Push 到 GitHub</h2><p>第一次推送新分支：</p><pre><code class=language-bash>git push -u origin feature/login
+</code></pre><p>其中 <code>origin</code> 通常是远程仓库的默认名称，<code>-u</code> 是 <code>--set-upstream</code> 的缩写，用于建立本地分支和远程分支之间的跟踪关系：</p><pre><code class=language-text>本地 feature/login
+        ↕
+远程 origin/feature/login
+</code></pre><p>建立跟踪关系后，后续直接执行即可：</p><pre><code class=language-bash>git push
+</code></pre><hr><h2 id=5-pull-request>5. Pull Request</h2><p>分支推送到 GitHub 后，可以创建 Pull Request：</p><pre><code class=language-text>feature/login → main
+</code></pre><p>Pull Request 可以理解为：</p><blockquote><p>请求将一个分支的代码修改合并到另一个分支。</p></blockquote><p>PR 不属于 Git 本身，而是 GitHub、GitLab 等代码托管平台提供的协作功能。除了代码合并，还可以进行 Code Review、CI 检查、代码讨论和权限控制。</p><hr><h2 id=6-mergeability-检查>6. Mergeability 检查</h2><p>创建 PR 后，GitHub 会检查两个分支是否存在无法自动解决的代码冲突。</p><p>如果看到：</p><pre><code class=language-text>Checking for the ability to merge automatically...
+</code></pre><p>表示 GitHub 正在检查当前 PR 是否可以自动合并。</p><p>如果显示：</p><pre><code class=language-text>Able to merge
+</code></pre><p>说明 Git 层面不存在无法自动解决的冲突。</p><p>需要注意：</p><blockquote><p><code>Able to merge</code> 只表示代码可以自动合并，并不代表 Code Review 已经通过。</p></blockquote><p>如果两个分支修改了同一部分代码，可能出现：</p><pre><code class=language-text>This branch has conflicts that must be resolved
+</code></pre><p>此时需要先解决冲突，再进行 Merge。</p><hr><h2 id=7-code-review>7. Code Review</h2><p>Code Review 通常发生在 PR 创建之后、Merge 之前。Reviewer 主要检查代码逻辑、潜在 Bug、代码规范、可维护性、性能以及测试等。</p><p>GitHub 中常见的 Review 结果：</p><ul><li><strong>Comment</strong>：提出意见，但不明确批准或拒绝。</li><li><strong>Approve</strong>：审核通过，可以进入合并流程。</li><li><strong>Request changes</strong>：存在问题，需要修改后重新 Review。</li></ul><p>如果 Reviewer 要求修改代码，开发者直接修改并提交：</p><pre><code class=language-bash>git add .
+git commit -m &quot;fix: address review comments&quot;
+git push
+</code></pre><p>原来的 PR 会自动更新，不需要重新创建 PR。</p><hr><h2 id=8-approve-与-merge>8. Approve 与 Merge</h2><p>需要区分 <strong>Approve</strong> 和 <strong>Merge</strong>：</p><table><thead><tr><th>操作</th><th>含义</th></tr></thead><tbody><tr><td>Comment</td><td>提出意见</td></tr><tr><td>Request changes</td><td>要求修改</td></tr><tr><td>Approve</td><td>审核通过</td></tr><tr><td>Merge</td><td>真正执行分支合并</td></tr></tbody></table><p>因此：</p><pre><code class=language-text>Approve → Reviewer 同意代码
+Merge   → 真正将代码合并到目标分支
+</code></pre><p>PR 作者不能 Approve 自己创建的 PR。如果 GitHub 提示：</p><pre><code class=language-text>Pull request authors can't approve their own pull requests.
+</code></pre><p>表示 PR 作者不能给自己的 PR 执行 Approval，并不代表一定不能 Merge。</p><p>如果仓库设置了分支保护规则，例如要求至少一个 Approval，则需要其他开发人员进行 Review。</p><hr><h2 id=9-branch-protection>9. Branch Protection</h2><p>团队项目通常会对 <code>main</code> 设置保护规则，例如：</p><ul><li>必须通过 Pull Request 才能合并</li><li>必须至少一个 Reviewer Approve</li><li>CI 检查必须通过</li><li>必须解决所有 Review 对话</li><li>禁止直接 Push 到 <code>main</code></li></ul><p>这样可以避免未经审核的代码直接进入主分支。</p><hr><h2 id=10-merge-pull-request>10. Merge Pull Request</h2><p>Review 和 CI 检查通过后，可以将 Feature Branch 合并到 <code>main</code>。</p><p>GitHub 中通常点击：</p><pre><code class=language-text>Merge pull request
+</code></pre><p>然后确认 Merge。</p><p>常见的 Merge 方式包括：</p><ul><li><strong>Merge commit</strong></li><li><strong>Squash and merge</strong></li><li><strong>Rebase and merge</strong></li></ul><p>具体使用哪一种，可以根据项目的 Git 工作流决定。</p><hr><h2 id=11-更新本地-main>11. 更新本地 main</h2><p>PR 在 GitHub 上 Merge 后，本地 <code>main</code> 不会自动更新，需要同步远程仓库：</p><pre><code class=language-bash>git switch main
+git pull
+</code></pre><p>这样本地 <code>main</code> 就会获得 GitHub 上最新的代码。</p><hr><h2 id=12-删除-feature-branch>12. 删除 Feature Branch</h2><p>功能开发完成并 Merge 后，Feature Branch 通常就可以删除。</p><p>删除本地分支：</p><pre><code class=language-bash>git branch -d feature/login
+</code></pre><p>如果 Git 检测到分支还有未合并的提交，会阻止删除。确认不需要这些提交后，可以强制删除：</p><pre><code class=language-bash>git branch -D feature/login
+</code></pre><p>删除远程分支：</p><pre><code class=language-bash>git push origin --delete feature/login
+</code></pre><p>GitHub 在 PR Merge 后通常也会提供 <strong>Delete branch</strong> 按钮，可以直接删除远程分支。</p><hr><h2 id=13-总结>13. 总结</h2><p>一个完整的 GitHub PR 工作流可以总结为：</p><pre><code class=language-text>main
+  │
+  ├── 创建 feature 分支
+  │
+  ↓
+feature/login
+  │
+  ├── 开发
+  ├── git add
+  ├── git commit
+  └── git push
+          │
+          ↓
+   Pull Request
+          │
+          ↓
+    Code Review
+          │
+          ├── Request changes
+          │       ↓
+          │     修改代码
+          │       ↓
+          │     commit
+          │       ↓
+          │      push
+          │
+          ↓
+       Approve
+          │
+          ↓
+        Merge
+          │
+          ↓
+         main
+          │
+          ↓
+       git pull
+          │
+          ↓
+     删除 feature 分支
+</code></pre><p>对于个人项目，可以直接使用 <code>git merge</code> 完成分支合并；多人协作项目则更推荐采用：</p><p><strong>Feature Branch → Pull Request → Code Review → CI → Merge</strong></p><p>这样可以在代码进入 <code>main</code> 之前完成审核、测试和讨论，提高代码质量并方便团队协作。</p><footer><nav class=post-nav><span class=nav-prev></span>
+<span class=nav-next><a href=/cn/2026/08/23/twgx-lxwk-test/>滕王阁序</a> &rarr;</span></nav><script src=//cdn.jsdelivr.net/npm/@xiee/utils/js/math-code.js defer></script><script src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><script src=//cdn.jsdelivr.net/npm/@xiee/utils/js/center-img.js defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css><script src=https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js></script><script type=application/json id=local-songs-json>[{"artist":"Alan Walker","cover":"/audio/Faded-cover.jpg","lrc":"/audio/Alan-Walker-Faded.lrc","name":"Faded","url":"/audio/Faded.mp3"},{"artist":"Adele","cover":"/audio/Someone Like You-cover.jpg","lrc":"/audio/Someone Like You-Adele.lrc","name":"Someone Like You","url":"/audio/Someone Like You.mp3"},{"artist":"Alec Benjamin","cover":"/audio/Let Me Down Slowly-cover.jpg","lrc":"/audio/Let Me Down Slowly-Alec Benjamin.lrc","name":"Let Me Down Slowly","url":"/audio/Let Me Down Slowly.mp3"},{"artist":"Christina Perri","cover":"/audio/A Thousand Years-cover.jpg","lrc":"/audio/A Thousand Years-Christina Perri.lrc","name":"A Thousand Years","url":"/audio/A Thousand Years.mp3"},{"artist":"Ed Sheeran","cover":"/audio/Perfect-cover.jpg","lrc":"/audio/Perfect-Ed Sheeran.lrc","name":"Perfect","url":"/audio/Perfect.mp3"},{"artist":"Ed Sheeran","cover":"/audio/Perfect-cover.jpg","lrc":"/audio/Shape of You-Ed Sheeran.lrc","name":"Shape of You","url":"/audio/Shape of You.mp3"},{"artist":"水槽","cover":"/audio/ランタノイド-cover.jpg","lrc":"/audio/ランタノイド-水槽.lrc","name":"ランタノイド","url":"/audio/ランタノイド.mp3"},{"artist":"G.E.M. 邓紫棋","cover":"/audio/光年之外-cover.jpg","lrc":"/audio/光年之外-G.E.M. 邓紫棋.lrc","name":"光年之外","url":"/audio/光年之外.mp3"},{"artist":"G.E.M. 邓紫棋","cover":"/audio/喜欢你-cover.jpg","lrc":"/audio/喜欢你-G.E.M. 邓紫棋.lrc","name":"喜欢你","url":"/audio/喜欢你.mp3"},{"artist":"梁静茹","cover":"/audio/孤单北半球-cover.jpg","lrc":"/audio/孤单北半球-梁静茹.lrc","name":"孤单北半球","url":"/audio/孤单北半球.mp3"},{"artist":"任素汐","cover":"/audio/亲爱的你啊-cover.jpg","lrc":"/audio/亲爱的你啊-任素汐.lrc","name":"亲爱的你啊","url":"/audio/亲爱的你啊.mp3"},{"artist":"王力宏","cover":"/audio/天地龙鳞-cover.jpg","lrc":"/audio/天地龙鳞-王力宏.lrc","name":"天地龙鳞","url":"/audio/天地龙鳞.mp3"},{"artist":"李宗盛","cover":"/audio/山丘-cover.jpg","lrc":"/audio/山丘-李宗盛.lrc","name":"山丘","url":"/audio/山丘.mp3"},{"artist":"李宗盛","cover":"/audio/给自己的歌-cover.jpg","lrc":"/audio/给自己的歌-李宗盛.lrc","name":"给自己的歌","url":"/audio/给自己的歌.mp3"}]</script><script type=application/json id=hljs-config>{"CDN":"//cdnjs.cloudflare.com/ajax/libs","LANGS":["r","yaml","tex"],"VER":"9.12.0"}</script><script>(function(){"use strict";var e,t,n,o,s=JSON.parse(document.getElementById("hljs-config").textContent),i=s.CDN,a=s.VER,r=s.LANGS||[];document.addEventListener("click",function(e){var t,n,s=e.target.closest("a[href]");if(!s)return;if(t=s.getAttribute("href"),!t)return;if(t.startsWith("#")||t.startsWith("mailto:")||t.startsWith("http")||s.hasAttribute("download")||s.closest("[data-fancybox]")||t.match(/\.(pdf|zip|rar|gz|mp3|mp4|mov)$/i)||t.match(/\.(jpe?g|png|gif|webp|svg|bmp|avif)$/i))return;e.preventDefault(),n=new URL(t,location.origin).href,fetch(n).then(function(e){return e.text()}).then(function(e){var s,a,t=(new DOMParser).parseFromString(e,"text/html"),o=t.querySelector(".main"),i=document.querySelector(".main");o&&i&&(i.innerHTML=o.innerHTML,document.title=t.title,t.body.className&&(document.body.className=t.body.className),history.pushState(null,"",n),window.scrollTo(0,0),window.MathJax&&MathJax.typeset&&MathJax.typeset(),a=new URL(n).pathname,document.querySelectorAll(".masthead .menu li").forEach(function(e){e.classList.remove("active")}),s=document.querySelector('.masthead .menu a[href="'+a+'"]'),s&&s.parentElement.classList.add("active"),d(),u())}).catch(function(){location.href=n})}),window.addEventListener("popstate",function(){location.reload()});function d(){var t,e=[];if(document.querySelectorAll(".main pre code").forEach(function(t){t.classList.contains("hljs")||e.push(t)}),!e.length)return;if(window.hljs){n(e);return}t=document.createElement("script"),t.src=i+"/highlight.js/"+a+"/highlight.min.js",t.onload=function(){window.hljs&&hljs.configure({languages:[]});var t=r.length;if(!t){n(e);return}r.forEach(function(s){var o=document.createElement("script");o.src=i+"/highlight.js/"+a+"/languages/"+s+".min.js",o.onload=o.onerror=function(){--t===0&&n(e)},document.head.appendChild(o)})},t.onerror=function(){},document.head.appendChild(t);function n(e){if(!window.hljs)return;e.forEach(function(e){hljs.highlightBlock(e)})}}o={Thumbs:!1,Toolbar:{display:{left:[],middle:[],right:["close"]}}};function u(){if(!document.querySelector('[data-fancybox^="gallery-"]'))return;if(window.Fancybox)Fancybox.bind('[data-fancybox^="gallery-"]',o);else{if(!document.querySelector('link[href*="fancybox"]')){var e,t=document.createElement("link");t.rel="stylesheet",t.href="/fancybox/fancybox.css",document.head.appendChild(t)}e=document.createElement("script"),e.src="/fancybox/fancybox.umd.js",e.onload=function(){window.Fancybox&&Fancybox.bind('[data-fancybox^="gallery-"]',o)},document.head.appendChild(e)}}if(document.querySelector(".aplayer.aplayer-fixed"))return;t=JSON.parse(document.getElementById("local-songs-json").textContent)||[],t=t.filter(function(e){return e&&e.url}),n=document.createElement("div"),n.id="moz-player-wrap",document.body.appendChild(n);function c(e,t){var n=new Array(e.length),s=0;e.forEach(function(o,i){if(!o.lrc){n[i]={name:o.name,artist:o.artist,url:o.url,cover:o.cover,lrc:""},++s===e.length&&t(n);return}var a=new XMLHttpRequest;a.open("GET",o.lrc),a.onload=function(){n[i]={name:o.name,artist:o.artist,url:o.url,cover:o.cover,lrc:a.responseText||""},++s===e.length&&t(n)},a.onerror=function(){n[i]={name:o.name,artist:o.artist,url:o.url,cover:o.cover,lrc:""},++s===e.length&&t(n)},a.send()})}e=new XMLHttpRequest,e.open("GET","https://api.injahow.cn/meting/?server=netease&type=playlist&id=2718299842"),e.onload=function(){var s,n=[];if(e.status===200)try{n=JSON.parse(e.responseText).map(function(e){return{name:e.name,artist:e.artist,url:e.url,cover:e.pic,lrc:e.lrc}})}catch{n=[]}if(s=n.concat(t),!s.length)return;c(s,l)},e.onerror=function(){if(!t.length)return;c(t.slice(),l)},e.send();function l(e){var t,s=new APlayer({container:n,fixed:!0,mini:!0,listFolded:!0,lrcType:1,order:"random",loop:"all",mutex:!0,storage:"moz-music-player",audio:e});s.on("play",function(){setTimeout(function(){var t,e=document.querySelector(".aplayer.aplayer-fixed");if(!e)return;e.classList.remove("aplayer-narrow"),t=e.querySelector(".aplayer-lrc"),t&&(t.style.display="block")},300)}),t=document.createElement("div"),t.innerHTML="✕",t.style.cssText="position:absolute;top:-8px;right:0;z-index:1000;width:20px;height:20px;cursor:pointer;font-size:14px;color:#999;background:#fff;border-radius:50%;line-height:20px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.2)",t.title="关闭播放器（刷新后重新显示）",t.onclick=function(){s.destroy(),t.remove()},setTimeout(function(){var e=document.querySelector(".aplayer.aplayer-fixed");e&&e.appendChild(t)},500)}})()</script><script>(function(){"use strict";var s,t="moz-dark-mode",e=document.getElementById("theme-toggle");function n(t){document.body.classList.toggle("dark-mode",t),e&&(e.textContent=t?"🌙":"🌞")}function o(){var e,n=localStorage.getItem(t);return n==="true"||n!=="false"&&(e=(new Date).getHours(),e>=18||e<6)}n(o()),e&&e.addEventListener("click",function(){var e=!document.body.classList.contains("dark-mode");localStorage.setItem(t,e),n(e)}),s=new MutationObserver(function(){var e,o,s=localStorage.getItem(t);s!==null&&(e=s==="true",o=document.body.classList.contains("dark-mode"),o!==e&&n(e))}),s.observe(document.body,{attributes:!0,attributeFilter:["class"]})})()</script><script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/tex.min.js></script><script>hljs.configure({languages:[]}),hljs.initHighlightingOnLoad()</script><hr><div class=copyright>© Mozaitii 2026 ｜ All Rights Reserved.</div></footer></article></body></html>
